@@ -1,0 +1,22 @@
+[
+    {
+        "model": "users.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$RuB8dI1uFYZc$aUu3r6p9o3W1ey4aqQILNDXU5IRIkU5+boF4r6y2pew=",
+            "last_login": null,
+            "is_superuser": false,
+            "email": "user@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-08-07T00:00:00Z",
+            "first_name": "Denis",
+            "last_name": "Bogdanov",
+            "city": "Sample City",
+            "phone": "1234567890",
+            "avatar": null,
+            "groups": [],
+            "user_permissions": []
+        }
+    }
+]
