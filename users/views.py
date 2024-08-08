@@ -1,7 +1,14 @@
 from django_filters import rest_framework as filters
-from rest_framework import viewsets
+from rest_framework import viewsets, status, generics
 from .models import Payment
 from .serializers import PaymentSerializer
+from django.contrib.auth.models import User
+from .serializers import RegisterSerializer, UserSerializer
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class PaymentFilter(filters.FilterSet):
     course = filters.NumberFilter(field_name='course__id')
@@ -20,3 +27,21 @@ class PaymentViewSet(viewsets.ModelViewSet):
     serializer_class = PaymentSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = PaymentFilter
+
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer
+    
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    permission_classes = (AllowAny,)
+
+class CustomTokenRefreshView(TokenRefreshView):
+    permission_classes = (AllowAny,)
