@@ -2,6 +2,7 @@ Django==4.2
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.2.2
 djangorestframework-jsonapi==6.1.0
+django-filter==24.3
 Pillow==9.4.0
 psycopg2-binary==2.9.5
 mysqlclient==2.1.1 
