@@ -1,4 +1,4 @@
-from rest_framework.permissions import BasePermission
+from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 class IsModerator(BasePermission):
     def has_permission(self, request, view):
@@ -6,6 +6,4 @@ class IsModerator(BasePermission):
 
 class CanViewAndEditOnly(BasePermission):
     def has_permission(self, request, view):
-        if request.method in ['GET', 'HEAD', 'OPTIONS', 'PUT', 'PATCH']:
-            return True
-        return False
+        return request.method in SAFE_METHODS or request.method in ['PUT', 'PATCH']

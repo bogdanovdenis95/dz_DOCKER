@@ -5,7 +5,8 @@
         "fields": {
             "title": "Python for Beginners",
             "preview": null,
-            "description": "An introductory course on Python programming."
+            "description": "An introductory course on Python programming.",
+            "owner": 1
         }
     },
     {
@@ -16,7 +17,8 @@
             "description": "Introduction to Python",
             "preview": null,
             "video_url": "http://example.com/video1",
-            "course": 1
+            "course": 1,
+            "owner": 1
         }
     }
 ]
