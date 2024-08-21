@@ -3,6 +3,7 @@ from pathlib import Path
 import os
 import environ
 from datetime import timedelta
+import stripe
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -14,6 +15,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+STRIPE_TEST_SECRET_KEY = 'sk_test_51Pq255AxQcSK7FmoDMwhvLtEfpZBS0yDCVzo5rfbPhObsYAWzvYeM8xaf9iCh5BNp3mw2Ib0N0Rbw4c3SogQX6Ev00MJdZzUC0'
+STRIPE_TEST_PUBLIC_KEY =  'pk_test_51Pq255AxQcSK7Fmo5pDvxR5ks7MilzdDibWgKLHLZorigB6atypcWNv4QERLxtPF0AtkXDNxsgqS4PRYcZ1qyMC700pL971Qbn'
+
+stripe.api_key = STRIPE_TEST_SECRET_KEY
 
 # Application definition
 
@@ -30,6 +35,7 @@ INSTALLED_APPS = [
     "lms",
     "django_filters",
     "rest_framework_simplejwt",
+    "drf_yasg",
 ]
 
 REST_FRAMEWORK = {
@@ -66,6 +72,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.request",
             ],
         },
     },

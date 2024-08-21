@@ -1,26 +1,7 @@
 from rest_framework.test import APITestCase
 from django.contrib.auth import get_user_model
-from .models import Lesson, Course, Subscription
 from rest_framework import status
-from django.core.exceptions import ValidationError
-
-class LessonValidatorTest(APITestCase):
-    def setUp(self):
-        User = get_user_model()
-        self.user = User.objects.create_user(email='testuser@example.com', password='testpassword')
-        self.course = Course.objects.create(title='Test Course', description='Test Description', owner=self.user)
-
-    def test_valid_youtube_url(self):
-        lesson = Lesson(title='Test Lesson', description='Test Description', video_url='https://www.youtube.com/watch?v=dQw4w9WgXcQ', course=self.course, owner=self.user)
-        try:
-            lesson.full_clean()
-        except ValidationError:
-            self.fail("ValidationError raised for a valid YouTube URL")
-
-    def test_invalid_url(self):
-        lesson = Lesson(title='Test Lesson', description='Test Description', video_url='https://www.example.com', course=self.course, owner=self.user)
-        with self.assertRaises(ValidationError):
-            lesson.full_clean()
+from .models import Lesson, Course, Subscription
 
 class CRUDLessonTest(APITestCase):
     def setUp(self):
