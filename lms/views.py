@@ -9,6 +9,8 @@ from rest_framework.response import Response
 from .paginators import CustomPagination
 from .services import create_stripe_product, create_stripe_price, create_checkout_session
 from rest_framework.exceptions import PermissionDenied
+from .tasks import send_course_update_email
+
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -44,6 +46,11 @@ class CourseViewSet(viewsets.ModelViewSet):
         if self.request.user.groups.filter(name='Модераторы').exists():
             return Course.objects.all()
         return Course.objects.filter(owner=self.request.user)
+    
+    def perform_update(self, serializer):
+        super().perform_update(serializer)
+        course = serializer.instance
+        send_course_update_email.delay(course.id)
 
 class LessonListCreateView(generics.ListCreateAPIView):
     queryset = Lesson.objects.all().order_by('id')
