@@ -15,7 +15,7 @@ SECRET_KEY = "django-insecure-#g+24!*yh@0l6skj2!_u(=pbtaob(=yyb)4x)0vv&fs&=7f!_e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 STRIPE_TEST_SECRET_KEY = 'sk_test_51Pq255AxQcSK7FmoDMwhvLtEfpZBS0yDCVzo5rfbPhObsYAWzvYeM8xaf9iCh5BNp3mw2Ib0N0Rbw4c3SogQX6Ev00MJdZzUC0'
 STRIPE_TEST_PUBLIC_KEY =  'pk_test_51Pq255AxQcSK7Fmo5pDvxR5ks7MilzdDibWgKLHLZorigB6atypcWNv4QERLxtPF0AtkXDNxsgqS4PRYcZ1qyMC700pL971Qbn'
@@ -90,13 +90,14 @@ WSGI_APPLICATION = "myproject.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'skypro',
-        'USER': 'postgres',
-        'PASSWORD': 'skypro',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.environ.get('POSTGRES_DB', 'skypro'),
+        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'skypro'),
+        'HOST': os.environ.get('POSTGRES_HOST', 'db'),
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
+
 
 
 
@@ -137,7 +138,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
